@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MusicStore.Models;
 
 namespace MusicStore.Controllers
 {
@@ -10,16 +11,22 @@ namespace MusicStore.Controllers
     {
         public ActionResult Index()
         {
-            var a = 10;
-            return View();
+            Models.MusicStoreEntity DB = new Models.MusicStoreEntity();
+            List<Albums> list=DB.Albums.OrderByDescending(a=>a.OrderDetails.Count).ToList();//按照字段AlbumID降序排列
+            return View(list);
         }
 
+        private int Order(Albums b)
+        {
+            return b.AlbumId;
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            ViewData["Message"] = "aaaa";
             return View();
         }
+
 
         public ActionResult Contact()
         {

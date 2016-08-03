@@ -1,0 +1,52 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc
+@model IEnumerable<MusicStore.Models.Albums>
+@helper DisplayTitle(string title,int len)
+    {
+if (title.Length <= len)
+{
+         @title;
+}
+else
+ {
+        @title.Substring(0,len)<text>...</text>
+ }
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("search")
+    <input type="submit" value="搜索" />
+    }
+</div>
+<div class="row">
+    @foreach (var album in Model)
+    {
+        <a href="@Url.Action("Details", new { id = album.AlbumId })">
+            <div class="col-md-3">
+
+                <p>
+                    <img src="@album.AlbumArtUrl" alt="@album.Title" />
+
+                </p>
+                <p>
+                    @DisplayTitle(@album.Title, 20)
+                </p>
+            </div>
+        </a>
+        }
+
+
+</div>
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new {ViewBag.search,page}))

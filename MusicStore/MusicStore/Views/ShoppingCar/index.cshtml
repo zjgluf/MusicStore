@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MusicStore.Models.Carts>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+         商品名称
+        </th>
+        <th>
+        商品单价
+        </th>
+        <th>
+         数量
+        </th>
+        <th>操作
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="row-@item.RecordId">
+        <td>
+            @Html.DisplayFor(modelItem => item.Albums.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Albums.Price)
+        </td>
+        <td>
+            <input type="text" class="item-count" data-id="@item.RecordId" value="@item.Count" />
+            @*@Html.DisplayFor(modelItem => item.Count)*@
+        </td>
+         <td>
+             <a href="#" class="remove-link" data-ajax="@item.RecordId">移除</a>
+            @*@Html.ActionLink("移除", "RemoveFromCart", new { id=item.RecordId }) |*@
+            @*@Html.ActionLink("Details", "Details", new { id=item.RecordId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecordId })*@
+        </td>
+    </tr>
+}
+    <tr>
+        <td>
+            总计
+        </td>
+        <td>
+          </td>
+        <td>
+
+        </td>
+        <td>
+              <text id="cart-total">@ViewBag.CartTotal</text> 
+        </td>
+    </tr>
+</table>
+@section Scripts
+{
+    <link rel="stylesheet" href="/Content/jquery.spinner.css" />
+    <script type="text/javascript" src="/Scripts/jquery.spinner.js"></script>
+    <script type="text/javascript">
+     $(function(){
+         $(".item-count").spinner();
+         $(".remove-link").click(function() {
+            var itemID = $(this).attr("data-ajax");
+             $.post("/ShoppingCar/RemoveFromCart", { id: itemID }, function (data) {
+                 $("#row-"+data.ItemID).fadeOut("slow");
+                 $("#cart-total").html(data.CartTotal);
+                 $("#cart-count").html(data.CartCount);
+             });
+         });
+
+    
+         $(".item-count").bind("update",function() {
+             var itemID = $(this).attr("data-id");
+             var itemCount = $(this).val();
+             $.post("/ShoppingCar/UpdateItemCart", { id: itemID,count:itemCount }, function (data) {
+                 $("#cart-total").html(data.CartTotal);
+                 $("#cart-count").html(data.CartCount);
+             });
+         });
+     })
+    </script>
+}

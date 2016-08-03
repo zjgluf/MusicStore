@@ -23,11 +23,19 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("商品", "Index", "Store")</li>
+      
+                    <li>@Html.ActionLink("商品管理", "Index", "StoreManage")</li>
+
+               
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="@Url.Action("Index","ShoppingCar")"> <img src="/content/Images/cart.png" />购物车(<text id="cart-count">@MusicStore.Models.ShoppingCart.GetCartCount()</text>)</a>
+                    </li>
+                 </ul>
+                    @Html.Partial("_LoginPartial")
+</div>
         </div>
     </div>
     <div class="container body-content">

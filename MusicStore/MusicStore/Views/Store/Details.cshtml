@@ -1,0 +1,83 @@
+﻿@model MusicStore.Models.Albums
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Albums</h4>
+    <hr />
+    <div><img src="@Model.AlbumArtUrl" />
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Artists.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artists.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genres.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlbumArtUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlbumArtUrl)
+
+        </dd>
+       @using (Html.BeginForm("AddToCart", "ShoppingCar"))
+       {
+        @*@Html.Hidden("id",Model.AlbumId)*@
+           <dt>
+            数量
+        </dt>
+            <dd>
+                <input type="text" id="txt-count" name="count" value="1" />
+            </dd>
+            <dt><input name="id" type="hidden" value="@Model.AlbumId" /></dt>
+            <dd><input type="submit"  class="btn btn-primary "value="加入购物车" /></dd>
+
+       }
+       
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("加入购物车", "AddToCart", "ShoppingCar", new { id = Model.AlbumId }, new { }) |
+ </p>*@
+@section Scripts
+{
+<link rel="stylesheet" href="/Content/jquery.spinner.css" />
+    <script type="text/javascript" src="/Scripts/jquery.spinner.js"></script>
+ <script type="text/javascript">
+     $(function(){
+         $("#txt-count").spinner();
+     })
+    </script>
+    }
