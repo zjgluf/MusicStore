@@ -191,8 +191,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShoppingCarController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\StoreManageController.cs" />
@@ -285,6 +287,10 @@
     <Content Include="Views\StoreManage\Index.cshtml" />
     <Content Include="Views\ShoppingCar\index.cshtml" />
     <Content Include="Views\Shared\_CartSummary.cshtml" />
+    <Content Include="Views\Checkout\SubmitOrder.cshtml" />
+    <Content Include="Views\Checkout\Complate.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

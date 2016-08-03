@@ -11,9 +11,21 @@ namespace MusicStore.Controllers
     {
         public ActionResult Index()
         {
-            Models.MusicStoreEntity DB = new Models.MusicStoreEntity();
-            List<Albums> list=DB.Albums.OrderByDescending(a=>a.OrderDetails.Count).ToList();//按照字段AlbumID降序排列
-            return View(list);
+            try
+            {
+                using (Models.MusicStoreEntity DB = new Models.MusicStoreEntity())
+                {
+                    List<Albums> list = DB.Albums.OrderByDescending(a => a.OrderDetails.Count).ToList();//按照字段AlbumID降序排列
+                    return View(list);
+                }
+            }
+            catch (Exception)
+            {
+                //exp.StackTrace;
+                return View("Error");
+            }
+        
+           
         }
 
         private int Order(Albums b)

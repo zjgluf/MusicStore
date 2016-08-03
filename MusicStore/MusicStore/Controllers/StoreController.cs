@@ -34,9 +34,17 @@ namespace MusicStore.Controllers
         }
         public ActionResult Details(int id)
         {
+            try
+            {
+                Albums a = DB.Albums.Find(id);
+               return View(a);
+            }
+            catch (Exception exp)
+            {
 
-            Albums a = DB.Albums.Find(id);
-            return View(a);
+                throw;
+            }
+         
         }
     }
 }
